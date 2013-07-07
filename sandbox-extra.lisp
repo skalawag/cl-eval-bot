@@ -28,10 +28,13 @@
                           (cl:export (cl:list ',s))))))
 
 (export-and-lock
-  help tell)
+  help tell sheep?)
 
 (cl:define-symbol-macro help
     (cl:signal 'common:extra-command :command "help" :arguments cl:nil))
+
+(cl:define-symbol-macro sheep?
+    (cl:signal 'common:extra-command :command "sheep?" :arguments cl:nil))
 
 (cl:defmacro tell (nick sexp cl:&rest ignored)
   (cl:declare (cl:ignore ignored))

@@ -295,6 +295,14 @@
                     (find char "_-\\[]{}^`|"))))
 
 
+(defun extra-cmd-sheep (client target)
+  (let* ((str (string (if (= (random 2) 0) "~a is a sheep!" "~a is a heathen!")))
+	 (msg (make-instance 'client-privmsg
+			     :target "#amarillolinux"
+			     :contents (bot-message str target))))
+    (send :terminal msg)
+    (queue-add (send-queue client) msg)))
+
 (defun extra-cmd-help (client target)
   (send :terminal (format nil "[Sending help to ~A]" target))
   (loop :for line :in *help-strings*
@@ -363,7 +371,9 @@
           (with-thread ("extra command")
             (let ((cmd (common:command c))
                   (args (common:arguments c)))
-              (cond ((equalp cmd "help")
+              (cond ((equalp cmd "sheep?")
+		     (extra-cmd-sheep client user))
+		    ((equalp cmd "help")
                      (extra-cmd-help client target))
                     ((equalp cmd "tell")
                      (extra-cmd-tell client user args)))))))

@@ -295,6 +295,15 @@
                     (find char "_-\\[]{}^`|"))))
 
 
+(defun extra-cmd-no_iam_lisp_bot (client target)
+  (let* ((str (string "~a!"))
+	 (msg (make-instance 'client-privmsg
+			     :target "#amarillolinux" 
+			     :contents (bot-message str target))))
+    (send :terminal msg)
+    (queue-add (send-queue client) msg)))
+
+
 (defun extra-cmd-sheep (client target)
   (let* ((str (string (if (= (random 2) 0) "~a is a sheep!" "~a is a heathen!")))
 	 (msg (make-instance 'client-privmsg
@@ -371,7 +380,9 @@
           (with-thread ("extra command")
             (let ((cmd (common:command c))
                   (args (common:arguments c)))
-              (cond ((equalp cmd "sheep?")
+              (cond ((equalp cmd "NO_IAM_LISP_BOT!")
+		     (extra-cmd-no_iam_lisp_bot client user))
+		    ((equalp cmd "sheep?")
 		     (extra-cmd-sheep client user))
 		    ((equalp cmd "help")
                      (extra-cmd-help client target))

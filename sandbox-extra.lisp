@@ -28,10 +28,13 @@
                           (cl:export (cl:list ',s))))))
 
 (export-and-lock
-  help tell sheep?)
+  help tell sheep? NO_IAM_LISP_BOT!)
 
 (cl:define-symbol-macro help
     (cl:signal 'common:extra-command :command "help" :arguments cl:nil))
+
+(cl:define-symbol-macro NO_IAM_LISP_BOT!
+			(cl:signal 'common:extra-command :command "NO_IAM_LISP_BOT!" :arguments cl:nil))
 
 (cl:define-symbol-macro sheep?
     (cl:signal 'common:extra-command :command "sheep?" :arguments cl:nil))

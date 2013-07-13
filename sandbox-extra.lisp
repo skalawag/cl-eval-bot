@@ -40,7 +40,7 @@
     (cl:signal 'common:extra-command :command "sheep?" :arguments cl:nil))
 
 (cl:define-symbol-macro rot13
-    (cl:signal 'common:extra-command :command "rot13" :arguments (cl:list values)))
+    (cl:signal 'common:extra-command :command "rot13" :arguments (cl:list (cl:with-output-to-string (stream)))))
 
 (cl:defmacro tell (nick sexp cl:&rest ignored)
   (cl:declare (cl:ignore ignored))

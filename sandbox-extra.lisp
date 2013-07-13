@@ -36,6 +36,9 @@
 (cl:define-symbol-macro sheep?
     (cl:signal 'common:extra-command :command "sheep?" :arguments cl:nil))
 
+(cl:define-symbol-macro sheep?
+    (cl:signal 'common:extra-command :command "rot13" :arguments cl:nil))
+
 (cl:defmacro tell (nick sexp cl:&rest ignored)
   (cl:declare (cl:ignore ignored))
   `(cl:let* ((form (cl:let ((cl:*print-case* :downcase))

@@ -304,7 +304,29 @@
     (queue-add (send-queue client) msg)))
 
 (defun extra-cmd-rot13 (client target args)
-  (let ((source (car args)))
+  (let ((res (rot13 (car args)))
+	(msg (make-instance 'client-privmsg
+			    :target "#amarillolinux"
+			    :contents (bot-message "~a" res))))))
+
+(defun explode (s)
+	    (let ((res nil))
+	      (dotimes (i (length s))
+		(push (aref s i) res))
+	    (reverse res)))
+
+(defun rot13 (s)
+  (let ((str (explode s))
+	(source (explode "abcdefghijklmnopqrstuvwxyz"))
+	(res nil))
+    (dolist (c str)
+      (if (> (+ 13 (position c source)) 25)
+	  (push (nth (- (+ 13 (position c source)) 26) source) res)
+	  (push (nth (+ 13 (position c source)) source) res)))
+    (let ((st (make-array 0 :element-type 'character :fill-pointer 0 :adjustable t)))
+      (dolist (char res)
+	(vector-push-extend char st))
+      (reverse st))))
 
 (defun extra-cmd-help (client target)
   (send :terminal (format nil "[Sending help to ~A]" target))
@@ -374,7 +396,9 @@
           (with-thread ("extra command")
             (let ((cmd (common:command c))
                   (args (common:arguments c)))
-              (cond ((equalp cmd "sheep?")
+              (cond ((equalp cmd "rot13")
+		     (extra-cmd-rot13 client target args))
+		     (equalp cmd "sheep?")
 		     (extra-cmd-sheep client user))
 		    ((equalp cmd "help")
                      (extra-cmd-help client target))

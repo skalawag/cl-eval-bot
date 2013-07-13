@@ -316,7 +316,7 @@
   (let* ((res (rot13 (car args)))
 	(msg (make-instance 'client-privmsg
 			    :target "#amarillolinux"
-			    :contents (bot-message "~a" res))))))
+			    :contents (bot-message res target))))))
 
 (defun explode (s)
   (let ((res nil))

@@ -298,7 +298,7 @@
 (defun extra-cmd-no_iam_lisp_bot (client target)
   (let* ((str (string "~a!"))
 	 (msg (make-instance 'client-privmsg
-			     :target "#amarillolinux" 
+			     :target "#amarillolinux"
 			     :contents (bot-message str target))))
     (send :terminal msg)
     (queue-add (send-queue client) msg)))
@@ -319,10 +319,10 @@
 			    :contents (bot-message "~a" res))))))
 
 (defun explode (s)
-	    (let ((res nil))
-	      (dotimes (i (length s))
-		(push (aref s i) res))
-	    (reverse res)))
+  (let ((res nil))
+    (dotimes (i (length s))
+      (push (aref s i) res))
+    (reverse res)))
 
 (defun rot13 (s)
   (let ((str (explode s))
@@ -405,15 +405,11 @@
           (with-thread ("extra command")
             (let ((cmd (common:command c))
                   (args (common:arguments c)))
-<<<<<<< HEAD
               (cond ((equalp cmd "rot13")
 		     (extra-cmd-rot13 client target args))
-		     (equalp cmd "sheep?")
-=======
-              (cond ((equalp cmd "NO_IAM_LISP_BOT!")
+		    ((equalp cmd "NO_IAM_LISP_BOT!")
 		     (extra-cmd-no_iam_lisp_bot client user))
 		    ((equalp cmd "sheep?")
->>>>>>> ae7129dc048990c3ededd643fb2c205fd61fe6ac
 		     (extra-cmd-sheep client user))
 		    ((equalp cmd "help")
                      (extra-cmd-help client target))

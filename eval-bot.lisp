@@ -303,6 +303,9 @@
     (send :terminal msg)
     (queue-add (send-queue client) msg)))
 
+(defun extra-cmd-rot13 (client target args)
+  (let ((source (car args)))
+
 (defun extra-cmd-help (client target)
   (send :terminal (format nil "[Sending help to ~A]" target))
   (loop :for line :in *help-strings*

@@ -314,9 +314,11 @@
 
 (defun extra-cmd-rot13 (client target args)
   (let* ((res (rot13 (car args)))
-	(msg (make-instance 'client-privmsg
-			    :target "#amarillolinux"
-			    :contents (bot-message res target))))))
+	 (msg (make-instance 'client-privmsg
+			     :target "#amarillolinux"
+			     :contents (bot-message res target))))
+    (send :terminal msg)
+    (queue-add (send-queue client) msg)))
 
 (defun explode (s)
   (let ((res nil))

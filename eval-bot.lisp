@@ -313,7 +313,7 @@
     (queue-add (send-queue client) msg)))
 
 (defun extra-cmd-rot13 (client target args)
-  (let ((res (rot13 (car args)))
+  (let* ((res (rot13 (car args)))
 	(msg (make-instance 'client-privmsg
 			    :target "#amarillolinux"
 			    :contents (bot-message "~a" res))))))

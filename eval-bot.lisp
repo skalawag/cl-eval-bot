@@ -316,7 +316,7 @@
   (let* ((res (rot13 (car args)))
 	 (msg (make-instance 'client-privmsg
 			     :target "#amarillolinux"
-			     :contents (bot-message res target))))
+			     :contents (bot-message res))))
     (send :terminal msg)
     (queue-add (send-queue client) msg)))
 
